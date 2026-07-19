@@ -18,6 +18,7 @@ Task → Planner → Cognitive Lenses (parallel) → Consensus Engine → Self C
 1. Restate the task in one or two sentences to fix its scope. If the task is ambiguous in a way that changes which lenses apply, ask one short clarifying question; otherwise proceed.
 2. Classify the task type (programming, research, business, creative, product/UX, operations, personal decision, or mixed) and pick lenses using [lens-selection.md](references/lens-selection.md).
 3. Pick an effort tier:
+   - **Latent** — one generation pass primed with the selected lenses' questions; no per-lens transcripts. ~1–2× the cost of a direct answer. Default for medium-stakes questions where token cost matters more than auditability. Read [latent-mode.md](references/latent-mode.md) — including its limits — before using it.
    - **Light** — 3 lenses, one consensus round. Default for small or well-bounded tasks.
    - **Standard** — 4–6 lenses, one consensus round plus self-critique.
    - **Deep** — 6+ lenses, multiple consensus rounds, recursive re-invocation of lenses on unresolved conflicts. Use only when the user asks for depth or the stakes clearly justify the cost.

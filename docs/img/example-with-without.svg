@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="560" viewBox="0 0 1080 560" role="img" aria-label="The same question answered without and with the Cognitive Lenses engine">
+  <style>
+    text { font-family: system-ui, 'Segoe UI', sans-serif; }
+    .title { font-size: 22px; font-weight: 700; fill: #0b0b0b; }
+    .q { font-size: 14px; font-style: italic; fill: #52514e; }
+    .colhead { font-size: 12.5px; font-weight: 700; letter-spacing: 1.2px; }
+    .verdict { font-size: 14.5px; font-weight: 700; fill: #0b0b0b; }
+    .sub { font-size: 11px; font-weight: 600; letter-spacing: 1px; fill: #898781; }
+    .item { font-size: 13.2px; fill: #0b0b0b; }
+    .lens { font-weight: 600; fill: #52514e; }
+    .foot { font-size: 12px; fill: #898781; }
+    .miss { font-size: 14px; font-weight: 700; fill: #d03b3b; }
+    .catch { font-size: 14px; font-weight: 700; fill: #0ca30c; }
+  </style>
+
+  <rect x="0.5" y="0.5" width="1079" height="559" rx="12" fill="#fcfcfb" stroke="#0b0b0b" stroke-opacity="0.10"/>
+
+  <text x="40" y="52" class="title">The same question, with and without the engine</text>
+
+  <rect x="40" y="72" width="1000" height="66" rx="8" fill="#f0efec"/>
+  <text x="60" y="99" class="q">“Our product API is getting slow (p95 ~900 ms). Should we add a Redis cache in front of Postgres?</text>
+  <text x="60" y="121" class="q">Team of three, paid tier launches next month.”</text>
+
+  <!-- WITHOUT column -->
+  <rect x="40.5" y="166.5" width="488" height="318" rx="10" fill="#ffffff" stroke="#0b0b0b" stroke-opacity="0.10"/>
+  <text x="64" y="200" class="colhead" fill="#898781">WITHOUT · DIRECT ANSWER</text>
+  <text x="64" y="230" class="verdict">“Yes — add managed Redis, cache-aside,</text>
+  <text x="64" y="250" class="verdict">TTL 60–300 s, invalidate on writes.”</text>
+  <text x="64" y="284" class="sub">WHAT IT NEVER ASKED</text>
+  <text x="64" y="314" class="miss">✗</text><text x="86" y="314" class="item">Is the database actually the bottleneck?</text>
+  <text x="64" y="344" class="miss">✗</text><text x="86" y="344" class="item">Is launch month the time for new infrastructure?</text>
+  <text x="64" y="374" class="miss">✗</text><text x="86" y="374" class="item">What do stale reads cost once customers pay?</text>
+  <text x="64" y="404" class="miss">✗</text><text x="86" y="404" class="item">Who sees whose data if cache keys ignore tenants?</text>
+  <text x="64" y="448" class="foot">Competent, actionable — and it accepted the premise.</text>
+
+  <!-- WITH column -->
+  <rect x="552.5" y="166.5" width="488" height="318" rx="10" fill="#ffffff" stroke="#0b0b0b" stroke-opacity="0.10"/>
+  <text x="576" y="200" class="colhead" fill="#2a78d6">WITH · COGNITIVE LENSES (5 LENSES → CONSENSUS)</text>
+  <text x="576" y="230" class="verdict">“Not yet — locate the bottleneck first, and don’t ship</text>
+  <text x="576" y="250" class="verdict">a new stateful dependency in your launch month.”</text>
+  <text x="576" y="284" class="sub">WHAT THE LENSES CAUGHT</text>
+  <text x="576" y="314" class="catch">✓</text><text x="598" y="314" class="item"><tspan class="lens">3 lenses converge:</tspan> the bottleneck was never measured</text>
+  <text x="576" y="344" class="catch">✓</text><text x="598" y="344" class="item"><tspan class="lens">Risk:</tspan> two launches sharing one blast radius</text>
+  <text x="576" y="374" class="catch">✓</text><text x="598" y="374" class="item"><tspan class="lens">Systems:</tspan> stale entitlements become billing disputes</text>
+  <text x="576" y="404" class="catch">✓</text><text x="598" y="404" class="item"><tspan class="lens">Security:</tspan> tenant-scoped keys, or customers see each other</text>
+  <text x="576" y="448" class="foot">Same caching plan if evidence demands it — sequenced after proof.</text>
+
+  <text x="40" y="530" class="foot">Full worked run: examples/with-vs-without.md · explicit engine costs ≈ 10–15× the tokens of the direct answer — see the benchmark for when that trade pays.</text>
+</svg>

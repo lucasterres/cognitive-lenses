@@ -21,7 +21,37 @@ flowchart LR
 
 A single-pass LLM answer tends to accept the premise of the question and answer from one implicit viewpoint. The interesting failures — the unmeasured bottleneck, the launch-week blast radius, the customer the feature harms, the cache key that leaks tenant data — live in the viewpoints the single pass never took. Forcing several fixed, independent question sets over the same task surfaces them, and forcing the merge step to keep disagreements visible stops the ensemble from averaging them away.
 
-See it concretely: [examples/with-vs-without.md](examples/with-vs-without.md) runs the same task both ways, side by side.
+![The same question answered without and with the engine: the direct answer accepts the premise and explains how to cache; the lens run challenges the premise and recommends measuring first](docs/img/example-with-without.svg)
+
+The full run behind this panel is in [examples/with-vs-without.md](examples/with-vs-without.md), reproduced answer by answer.
+
+## Does it help? The benchmark
+
+Five tasks, each answered three ways — direct answer, latent mode, full engine — and scored on premise scrutiny, risk coverage, actionability, and calibration. Every answer, score, and chart is regenerable from [benchmark/](benchmark/). **Read the [limitations](benchmark/README.md) before quoting numbers: N=5, self-judged, illustrative.**
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/benchmark-scores-dark.png">
+  <img alt="Grouped bar chart of mean rubric scores per task: the engine and latent mode outscore the baseline on all four good-fit tasks, while the baseline wins on the poor-fit control task" src="docs/img/benchmark-scores-light.png">
+</picture>
+
+On good-fit tasks the engine roughly doubles the baseline's rubric score (≈2.7 → ≈4.9), with latent mode close behind (≈4.4) at a fraction of the cost. On the control task — a trivial factual question — the ranking inverts: the baseline's one-word answer beats the engine's twenty-line ritual. The framework's go/no-go gate is part of the framework.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/benchmark-tradeoff-dark.png">
+  <img alt="Scatter plot of quality versus visible words per answer: latent mode sits near the engine's quality at roughly twice the baseline's cost, while the engine costs the most; on the control task the one-word direct answer scores highest" src="docs/img/benchmark-tradeoff-light.png">
+</picture>
+
+## Latent mode: the lenses in the model's "subconscious"
+
+The explicit pipeline buys auditability with tokens. **Latent mode** buys most of the quality for a fraction of the cost: the Planner still selects lenses, but their fixed questions are injected as silent constraints on a single generation pass — no per-lens transcripts, only mandatory answer slots (challenged premise, named risk, calibrated confidence) that force the primed thinking to surface as conclusions.
+
+The design leans on three Anthropic research results, and inherits their limits:
+
+- Models genuinely compute beyond what they emit — circuit tracing caught Claude planning rhymes before writing the line ([Tracing the thoughts of a large language model](https://www.anthropic.com/research/tracing-thoughts-language-model)). Latent multi-constraint processing is the mechanism latent mode leans on.
+- Models can't reliably report their own internals — ~20% detection of injected concepts under optimal conditions ([Emergent introspective awareness](https://www.anthropic.com/research/introspection)). So "yes, I applied the lenses internally" is not evidence, and latent mode never claims it is.
+- Even visible reasoning is not a faithful trace ([Reasoning models don't always say what they think](https://www.anthropic.com/research/reasoning-models-dont-say-think)). Explicit transcripts are *checkable artifacts*, not guaranteed introspection — which is exactly why they remain the mode of choice when someone must audit the answer.
+
+Full design, prompts, and boundaries: [latent-mode.md](skills/cognitive-lenses/references/latent-mode.md).
 
 ## What's inside
 
@@ -32,8 +62,10 @@ See it concretely: [examples/with-vs-without.md](examples/with-vs-without.md) ru
 | [references/consensus-engine.md](skills/cognitive-lenses/references/consensus-engine.md) | Clustering, conflict resolution, confidence calibration, self-critique gate |
 | [references/lens-selection.md](skills/cognitive-lenses/references/lens-selection.md) | Adaptive lens profiles per task type, with adjustment and cost rules |
 | [references/custom-lenses.md](skills/cognitive-lenses/references/custom-lenses.md) | Template and best practices for community lenses, with worked examples |
+| [references/latent-mode.md](skills/cognitive-lenses/references/latent-mode.md) | The low-token "subconscious" mode, grounded in Anthropic interpretability research |
 | [examples/](examples/) | With-vs-without demo, good fits, poor fits |
-| [tests/](tests/) | Structural tests that keep the catalog, profiles, and templates consistent |
+| [benchmark/](benchmark/) | Tasks, three-mode answers, rubric, scores, and the chart renderer |
+| [tests/](tests/) | Structural tests that keep the catalog, profiles, benchmark, and templates consistent |
 
 ## Quick start
 
@@ -60,6 +92,7 @@ The Planner's first duty is deciding **whether** to run, not just which lenses t
 
 ```bash
 python tests/test_skill_structure.py   # stdlib only
+python tests/test_benchmark.py
 # or
 pytest
 ```

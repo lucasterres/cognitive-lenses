@@ -1,0 +1,62 @@
+{
+  "rubric_dimensions": ["premise_scrutiny", "risk_coverage", "actionability", "calibration"],
+  "scale": [0, 5],
+  "methodology_note": "Self-evaluated illustrative micro-benchmark; see benchmark/README.md for limitations. Scores judged against benchmark/rubric.md over the answers in benchmark/answers/. Word counts are computed from the answer files by render_charts.py, not stored here.",
+  "tasks": [
+    {
+      "id": "01-redis-cache",
+      "title": "Redis cache decision",
+      "type": "programming",
+      "framework_fit": "good",
+      "scores": {
+        "baseline": {"premise_scrutiny": 1, "risk_coverage": 2, "actionability": 4, "calibration": 2},
+        "latent":   {"premise_scrutiny": 5, "risk_coverage": 4, "actionability": 4, "calibration": 5},
+        "engine":   {"premise_scrutiny": 5, "risk_coverage": 5, "actionability": 5, "calibration": 5}
+      }
+    },
+    {
+      "id": "02-microservices",
+      "title": "Monolith split decision",
+      "type": "architecture",
+      "framework_fit": "good",
+      "scores": {
+        "baseline": {"premise_scrutiny": 2, "risk_coverage": 2, "actionability": 4, "calibration": 2},
+        "latent":   {"premise_scrutiny": 5, "risk_coverage": 4, "actionability": 4, "calibration": 4},
+        "engine":   {"premise_scrutiny": 5, "risk_coverage": 5, "actionability": 5, "calibration": 4}
+      }
+    },
+    {
+      "id": "03-export-button",
+      "title": "Export feature request",
+      "type": "product",
+      "framework_fit": "good",
+      "scores": {
+        "baseline": {"premise_scrutiny": 1, "risk_coverage": 3, "actionability": 5, "calibration": 1},
+        "latent":   {"premise_scrutiny": 4, "risk_coverage": 5, "actionability": 4, "calibration": 4},
+        "engine":   {"premise_scrutiny": 5, "risk_coverage": 5, "actionability": 5, "calibration": 4}
+      }
+    },
+    {
+      "id": "04-vendor-benchmark",
+      "title": "Vendor 4× throughput claim",
+      "type": "research",
+      "framework_fit": "good",
+      "scores": {
+        "baseline": {"premise_scrutiny": 4, "risk_coverage": 3, "actionability": 4, "calibration": 3},
+        "latent":   {"premise_scrutiny": 5, "risk_coverage": 4, "actionability": 4, "calibration": 5},
+        "engine":   {"premise_scrutiny": 5, "risk_coverage": 5, "actionability": 5, "calibration": 5}
+      }
+    },
+    {
+      "id": "05-postgres-port",
+      "title": "Postgres default port (control)",
+      "type": "factual",
+      "framework_fit": "poor",
+      "scores": {
+        "baseline": {"premise_scrutiny": 5, "risk_coverage": 5, "actionability": 5, "calibration": 5},
+        "latent":   {"premise_scrutiny": 5, "risk_coverage": 5, "actionability": 5, "calibration": 4},
+        "engine":   {"premise_scrutiny": 3, "risk_coverage": 4, "actionability": 3, "calibration": 4}
+      }
+    }
+  ]
+}
