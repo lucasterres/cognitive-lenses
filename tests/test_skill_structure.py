@@ -85,7 +85,8 @@ def test_skill_md_covers_pipeline_stages():
 
 
 def test_all_markdown_links_resolve():
-    for md in [SKILL_DIR / "SKILL.md", *REFERENCES.glob("*.md")]:
+    docs = REPO_ROOT / "docs"
+    for md in [SKILL_DIR / "SKILL.md", *REFERENCES.glob("*.md"), *docs.glob("*.md")]:
         text = read(md)
         for label, target in re.findall(r"\[([^\]]+)\]\(([^)]+)\)", text):
             if target.startswith(("http://", "https://", "#", "mailto:")):

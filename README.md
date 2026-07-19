@@ -51,7 +51,7 @@ The design leans on three Anthropic research results, and inherits their limits:
 - Models can't reliably report their own internals — ~20% detection of injected concepts under optimal conditions ([Emergent introspective awareness](https://www.anthropic.com/research/introspection)). So "yes, I applied the lenses internally" is not evidence, and latent mode never claims it is.
 - Even visible reasoning is not a faithful trace ([Reasoning models don't always say what they think](https://www.anthropic.com/research/reasoning-models-dont-say-think)). Explicit transcripts are *checkable artifacts*, not guaranteed introspection — which is exactly why they remain the mode of choice when someone must audit the answer.
 
-Full design, prompts, and boundaries: [latent-mode.md](skills/cognitive-lenses/references/latent-mode.md).
+Full design, prompts, and boundaries: [latent-mode.md](skills/cognitive-lenses/references/latent-mode.md). The complete annotated bibliography — these three plus the multi-agent reasoning literature (self-consistency, multiagent debate, Mixture-of-Agents, Tree of Thoughts) and the decision-science roots of each lens — is in [docs/research.md](docs/research.md).
 
 ## What's inside
 
@@ -65,6 +65,7 @@ Full design, prompts, and boundaries: [latent-mode.md](skills/cognitive-lenses/r
 | [references/latent-mode.md](skills/cognitive-lenses/references/latent-mode.md) | The low-token "subconscious" mode, grounded in Anthropic interpretability research |
 | [examples/](examples/) | With-vs-without demo, good fits, poor fits |
 | [benchmark/](benchmark/) | Tasks, three-mode answers, rubric, scores, and the chart renderer |
+| [docs/research.md](docs/research.md) | Every source the design leans on — Anthropic interpretability, multi-agent reasoning papers, decision-science roots — annotated with which claim each supports or constrains |
 | [tests/](tests/) | Structural tests that keep the catalog, profiles, benchmark, and templates consistent |
 
 ## Quick start

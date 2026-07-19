@@ -48,4 +48,8 @@ Rule of thumb: **Latent Mode is a better default; the explicit pipeline is a bet
 
 - Never present a latent-mode answer as "reviewed by N lenses." It was *primed with* N lenses; the distinction is the whole point of findings 2–3.
 - The output slots (challenged premise, named risk, confidence) are mandatory in Latent Mode — without them, priming degrades silently into an ordinary direct answer and no one can tell.
-- Do not stack latent priming with persona language ("think like a paranoid hacker"). Lenses are strategies, and in latent mode the strategy text is the *only* control surface — keep it clean.
+- Do not stack latent priming with persona language ("think like a paranoid hacker"). Lenses are strategies, and in latent mode the strategy text is the *only* control surface — keep it clean. (Anthropic's [persona vectors](https://www.anthropic.com/research/persona-vectors) work shows persona-flavored prompting measurably drifts character traits like sycophancy — the opposite of a controlled reasoning strategy.)
+
+## Further reading
+
+The annotated bibliography behind this mode — including the multi-agent reasoning literature it borrows from and the System 1 / System 2 framing — is in [docs/research.md](../../../docs/research.md).
