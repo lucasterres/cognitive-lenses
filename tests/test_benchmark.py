@@ -61,7 +61,7 @@ def test_chart_images_exist():
     img = REPO_ROOT / "docs" / "img"
     for name in ["benchmark-scores-light.png", "benchmark-scores-dark.png",
                  "benchmark-tradeoff-light.png", "benchmark-tradeoff-dark.png",
-                 "example-with-without.svg"]:
+                 "example-with-without.svg", "latent-mode-schematic.svg"]:
         assert (img / name).is_file(), f"missing image referenced by README: {name}"
 
 

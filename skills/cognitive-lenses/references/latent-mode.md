@@ -16,6 +16,10 @@ Three Anthropic findings frame what Latent Mode can and cannot promise:
 
 ## How Latent Mode works
 
+![Latent mode schematic: prompt primes latent computation across a one-way boundary; answer slots surface the evidence](../../../docs/img/latent-mode-schematic.svg)
+
+The mechanism in one picture: text touches only the prompt (band 1); the primed constraints shape token-free latent computation (band 2) across a boundary that nothing can read back through; and the mandatory slots (band 3) are the proof-of-work — the only place failed priming becomes detectable.
+
 Instead of one pass per lens, make **one generation pass** whose prompt has been shaped by the Planner:
 
 1. **Planner runs normally** (it is cheap): task type, lens profile, weights, and the go/no-go decision.

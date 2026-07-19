@@ -45,6 +45,8 @@ On good-fit tasks the engine roughly doubles the baseline's rubric score (≈2.7
 
 The explicit pipeline buys auditability with tokens. **Latent mode** buys most of the quality for a fraction of the cost: the Planner still selects lenses, but their fixed questions are injected as silent constraints on a single generation pass — no per-lens transcripts, only mandatory answer slots (challenged premise, named risk, calibrated confidence) that force the primed thinking to surface as conclusions.
 
+![Schematic of latent mode: the prompt (task, silent lens questions, required slots) crosses a one-way boundary into token-free latent computation, which cannot be read back; mandatory answer slots force the evidence to surface in the visible output](docs/img/latent-mode-schematic.svg)
+
 The design leans on three Anthropic research results, and inherits their limits:
 
 - Models genuinely compute beyond what they emit — circuit tracing caught Claude planning rhymes before writing the line ([Tracing the thoughts of a large language model](https://www.anthropic.com/research/tracing-thoughts-language-model)). Latent multi-constraint processing is the mechanism latent mode leans on.
