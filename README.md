@@ -1,0 +1,75 @@
+# Cognitive Lenses
+
+A multi-perspective reasoning framework for AI agents, packaged as a portable, model-agnostic skill.
+
+Each **lens** is a specific cognitive strategy or reasoning heuristic — divergent thinking, skeptical analysis, risk scanning, adversarial security thinking, systems thinking, empathy, and more. Not personas, not simulated people: strategies. A task is analyzed by several lenses independently, their observations are merged by a consensus engine, and the result passes a final self-critique before the answer ships.
+
+```mermaid
+flowchart LR
+    T[Task] --> P[Planner]
+    P --> L1[Lens A]
+    P --> L2[Lens B]
+    P --> L3[Lens C]
+    L1 --> C[Consensus Engine]
+    L2 --> C
+    L3 --> C
+    C --> S[Self Critique]
+    S --> F[Final Answer]
+```
+
+## Why
+
+A single-pass LLM answer tends to accept the premise of the question and answer from one implicit viewpoint. The interesting failures — the unmeasured bottleneck, the launch-week blast radius, the customer the feature harms, the cache key that leaks tenant data — live in the viewpoints the single pass never took. Forcing several fixed, independent question sets over the same task surfaces them, and forcing the merge step to keep disagreements visible stops the ensemble from averaging them away.
+
+See it concretely: [examples/with-vs-without.md](examples/with-vs-without.md) runs the same task both ways, side by side.
+
+## What's inside
+
+| Path | What it is |
+|---|---|
+| [skills/cognitive-lenses/SKILL.md](skills/cognitive-lenses/SKILL.md) | The skill manifest: pipeline, effort tiers, weighting, independence rules |
+| [references/lens-catalog.md](skills/cognitive-lenses/references/lens-catalog.md) | 14 built-in lenses, each with goal, strategy, fixed questions, cost, and **when NOT to use it** |
+| [references/consensus-engine.md](skills/cognitive-lenses/references/consensus-engine.md) | Clustering, conflict resolution, confidence calibration, self-critique gate |
+| [references/lens-selection.md](skills/cognitive-lenses/references/lens-selection.md) | Adaptive lens profiles per task type, with adjustment and cost rules |
+| [references/custom-lenses.md](skills/cognitive-lenses/references/custom-lenses.md) | Template and best practices for community lenses, with worked examples |
+| [examples/](examples/) | With-vs-without demo, good fits, poor fits |
+| [tests/](tests/) | Structural tests that keep the catalog, profiles, and templates consistent |
+
+## Quick start
+
+**Claude Code** — copy the skill into your project and invoke it:
+
+```bash
+cp -r skills/cognitive-lenses .claude/skills/
+# then, in a session:
+/cognitive-lenses Should we migrate our monolith to microservices?
+```
+
+**Any other LLM or agent framework** — the skill is plain markdown. Paste [SKILL.md](skills/cognitive-lenses/SKILL.md) plus [lens-catalog.md](skills/cognitive-lenses/references/lens-catalog.md) into the system prompt (or load them as tools/context), then submit the task. For agent frameworks with parallel sub-agents, run one lens per sub-agent; the independence rules in SKILL.md say how.
+
+## When to use it — and when not to
+
+The framework costs roughly 10–20× a direct answer. It earns that on decisions that are hard to reverse, span multiple dimensions, or hide a challengeable premise — and it actively hurts on syntax questions, emergencies, settled decisions, and matters of taste.
+
+- ✅ [examples/good-fits.md](examples/good-fits.md) — architecture decisions, plan reviews, claim evaluation, postmortems, high-stakes writing
+- ❌ [examples/poor-fits.md](examples/poor-fits.md) — including a full demonstration of the framework wasting twenty lines to answer "5432"
+
+The Planner's first duty is deciding **whether** to run, not just which lenses to pick.
+
+## Tests
+
+```bash
+python tests/test_skill_structure.py   # stdlib only
+# or
+pytest
+```
+
+The tests enforce the framework's own contracts: every lens has all required fields (including "Do NOT use when"), selection profiles only reference lenses that exist, links resolve, and custom-lens examples follow the mandatory template.
+
+## Extending
+
+Add lenses by following the template in [custom-lenses.md](skills/cognitive-lenses/references/custom-lenses.md). The rules that matter: one strategy per lens, strategies not personas, honest cost declaration, and a real "Do NOT use when" — a lens applicable everywhere is a lens sharpened nowhere.
+
+## License
+
+[MIT](LICENSE)
