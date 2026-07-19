@@ -1,6 +1,8 @@
 # Cognitive Lenses
 
-A multi-perspective reasoning framework for AI agents, packaged as a portable, model-agnostic skill.
+**You know the moment.** You ask an AI to build you a game. It delivers, proudly announcing the result is *"AAA quality"* — you run it, and it's junk. The failure isn't a lack of knowledge. It's a lack of the habits of mind that human experts have: no self-criticism before declaring victory, no second perspective asking *what's actually broken here?*, no connection between the confidence in the words and the evidence on the screen.
+
+Cognitive Lenses exists to install those habits. A multi-perspective reasoning framework for AI agents, packaged as a portable, model-agnostic skill — the answer only ships after other ways of thinking have attacked it, and the stated confidence has to survive a calibration check it can fail.
 
 Each **lens** is a specific cognitive strategy or reasoning heuristic — divergent thinking, skeptical analysis, risk scanning, adversarial security thinking, systems thinking, empathy, and more. Not personas, not simulated people: strategies. A task is analyzed by several lenses independently, their observations are merged by a consensus engine, and the result passes a final self-critique before the answer ships.
 
